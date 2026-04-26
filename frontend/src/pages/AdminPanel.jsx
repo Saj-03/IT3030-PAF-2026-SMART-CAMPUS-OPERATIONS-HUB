@@ -102,11 +102,37 @@ const CreateResourceModal = ({ onClose, onSuccess, showToast }) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const handleSubmit = async () => {
-        if (!form.name.trim() || !form.location.trim() || !form.capacity) { setError('Name, location, and capacity are required.'); return; }
-        setLoading(true); setError('');
-        try { await api.post('/resources', { ...form, capacity: Number(form.capacity) }); showToast(`Resource "${form.name}" created.`); onSuccess(); onClose(); }
-        catch (e) { setError(e.response?.data?.message || 'Failed to create resource.'); }
-        finally { setLoading(false); }
+        setError('');
+
+        // Validate all required fields individually
+        if (!form.name.trim()) {
+            setError('Resource Name is required.');
+            return;
+        }
+
+        if (!form.location.trim()) {
+            setError('Location is required.');
+            return;
+        }
+
+        if (!form.capacity || form.capacity <= 0) {
+            setError('Capacity (minimum 1 person) is required.');
+            return;
+        }
+
+        setLoading(true);
+        try { 
+            await api.post('/resources', { ...form, capacity: Number(form.capacity) }); 
+            showToast(`Resource "${form.name}" created.`); 
+            onSuccess(); 
+            onClose(); 
+        }
+        catch (e) { 
+            setError(e.response?.data?.message || 'Failed to create resource.'); 
+        }
+        finally { 
+            setLoading(false); 
+        }
     };
     return (
         <Modal title="🏢 Add New Resource" onClose={onClose}>

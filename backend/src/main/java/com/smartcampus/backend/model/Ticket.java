@@ -27,11 +27,11 @@ public class Ticket {
     @ManyToOne
     @JoinColumn(name = "technician_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "password", "notifications"})
-    private User technician; // Optional until assigned
+    private User technician;
 
     @NotBlank(message = "Category is required")
     @Column(nullable = false)
-    private String category; // e.g. "FURNITURE", "IT_EQUIPMENT", "PLUMBING"
+    private String category; // "FURNITURE", "IT_EQUIPMENT", "PLUMBING"
 
     @NotBlank(message = "Description is required")
     @Column(nullable = false, length = 1000)

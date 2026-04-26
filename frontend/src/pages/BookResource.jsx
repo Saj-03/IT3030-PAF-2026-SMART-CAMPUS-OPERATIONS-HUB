@@ -21,6 +21,22 @@ const BookResource = () => {
         e.preventDefault();
         setError('');
 
+        // Validate all required fields
+        if (!formData.startTime.trim()) {
+            setError('Start Date & Time is required.');
+            return;
+        }
+        
+        if (!formData.endTime.trim()) {
+            setError('End Date & Time is required.');
+            return;
+        }
+        
+        if (!formData.purpose.trim()) {
+            setError('Purpose of Booking is required.');
+            return;
+        }
+
         const start = new Date(formData.startTime);
         const end = new Date(formData.endTime);
 

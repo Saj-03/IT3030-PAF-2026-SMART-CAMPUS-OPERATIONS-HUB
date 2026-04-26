@@ -18,8 +18,7 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 /**
- * Unit tests for ResourceService — Module A
- * Member: Sulakshana (IT23249752)
+ * Unit tests for ResourceService
  */
 @ExtendWith(MockitoExtension.class)
 class ResourceServiceTest {
